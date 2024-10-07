@@ -27,6 +27,7 @@ class MoveToGoalNode(Node):
         
         self.current_pose = None
         self.timer = self.create_timer(0.1, self.timer_callback)
+        self.goal_reached = False
 
     def pose_callback(self, msg):
         self.current_pose = msg
@@ -58,11 +59,23 @@ class MoveToGoalNode(Node):
             twist_msg.angular.z = 6.0 * error_theta
         
         self.publisher_.publish(twist_msg)
+        
+        # Проверка, достиг ли робот цели
+        if distance < 0.1 and abs(error_theta) < 0.1:
+            self.goal_reached = True
+            self.get_logger().info("Goal reached! Stopping the node.")
+            self.timer.cancel()
+            self.destroy_node()
 
 def main(args=None):
     rclpy.init(args=args)
     node = MoveToGoalNode()
-    rclpy.spin(node)
+    
+    while rclpy.ok():
+        rclpy.spin_once(node)
+        if node.goal_reached:
+            break
+    
     node.destroy_node()
     rclpy.shutdown()
 
