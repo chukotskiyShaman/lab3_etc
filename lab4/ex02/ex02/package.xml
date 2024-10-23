@@ -3,7 +3,7 @@
   <name>ex02</name>
   <version>0.0.0</version>
   <description>The ex02 package</description>
-  <maintainer email="you@example.com">Your Name</maintainer>
+  <maintainer email="s.mendrul@gmail.com">chukotskiy_shaman</maintainer>
   <license>Apache License 2.0</license>
 
   <buildtool_depend>ament_python</buildtool_depend>
