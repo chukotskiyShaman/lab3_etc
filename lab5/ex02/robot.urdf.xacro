@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Constants -->
+  <xacro:property name="base_link_length" value="0.5" />
+  <xacro:property name="base_link_radius" value="0.2" />
+
+  <!-- Macros -->
+  <xacro:macro name="cylinder_link" params="name radius length">
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <cylinder radius="${radius}" length="${length}" />
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder radius="${radius}" length="${length}" />
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <!-- Base Link -->
+  <xacro:cylinder_link name="base_link" radius="${base_link_radius}" length="${base_link_length}" />
+
+</robot>
